@@ -14,7 +14,7 @@ pipeline{
                 }
             }
         }
-        stage("Test"){
+        stage("UnitTest"){
         when{          
             expression {
                    params.executeTest == True 

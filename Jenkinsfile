@@ -6,7 +6,7 @@ pipeline{
         choice(name:'APPVERSION',choices:['1.1','1.2','1.3'])
     }
     stages{
-        stage("Build"){          
+        stage('Build'){          
             steps{
                 script{
                     echo "Building the code"
@@ -15,7 +15,7 @@ pipeline{
                 }
             }
         }
-        stage("Test"){
+        stage('Test'){
         when{          
             expression {
                    params.executeTest == true 
@@ -27,7 +27,7 @@ pipeline{
             }
         }
         }
-        stage("PACKAGE"){
+        stage('PACKAGE'){
         steps{
           script{
             echo "Packaging the code"

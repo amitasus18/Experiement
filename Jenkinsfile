@@ -11,7 +11,7 @@ pipeline{
     stages{
         stage('Build'){        
             input{
-                message "select the version to build"
+                message "Sona is asking to select the version to build"
                 ok "version selected"
                 parameters{
                     choice(name: 'NEWAPP',choices: ['1.1','1.2','1.3'])

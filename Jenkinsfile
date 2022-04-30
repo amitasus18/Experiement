@@ -19,8 +19,11 @@ pipeline{
         when{          
             expression {
                    params.executeTests == true 
+                   echo "condition satisfied"
             }
+            
         }
+
         steps {
             script{
                 echo "Testing the Code"

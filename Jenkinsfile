@@ -19,7 +19,7 @@ pipeline{
         when{          
             expression {
                    params.executeTests == true 
-                   echo "condition satisfied"
+                   
             }
             
         }

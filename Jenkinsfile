@@ -30,8 +30,8 @@ pipeline{
         stage('PACKAGE'){
         steps{
           script{
-            echo "Packaging the code"
-            
+            echo "Deplpy the app to env :${params.Env}"
+            echo "Deplpy the app version to env :${params.APPVERSION}"
                 }
             }
         }

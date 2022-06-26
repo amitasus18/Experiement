@@ -4,7 +4,7 @@ pipeline {
        BUILD_SERVER_IP='ec2-user@13.59.2.226'
        IMAGE_NAME='amitv1/java-mvn-privaterepos:php$BUILD_NUMBER'
 //This will build the docker with php_Number'
-       DEPLOY_SERVER_IP='ec2-user@18.118.103.254'
+       DEPLOY_SERVER_KEY='ec2-user@18.118.103.254'
    }
     stages {          
 // BUILDING BLOCK
@@ -22,7 +22,7 @@ pipeline {
 // sudo yum install docker -y
 // sudo systemctl start docker
 
-                sh "ssh ${BUILD_SERVER_KEY} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/docker-files/"
+                sh "ssh ${BUILD_SERVER_IP} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/docker-files/"
 // This image name would give us all DOCKER WITH PHP_NUMBER 
                 sh "ssh ${BUILD_SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD"
                 sh "ssh ${BUILD_SERVER_IP} sudo docker push ${IMAGE_NAME}"
@@ -37,14 +37,14 @@ pipeline {
                script{
                     sshagent(['DEPLOY_SERVER_KEY']){
                          withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                         sh "scp -o StrictHostKeyChecking=no -r docker-files ${DEPLOY_SERVER_IP}:/home/ec2-user"
-                         sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER_IP} 'bash ~/docker-files/docker-script.sh'"
+                         sh "scp -o StrictHostKeyChecking=no -r docker-files ${DEPLOY_SERVER_KEY}:/home/ec2-user"
+                         sh "ssh -o StrictHostKeyChecking=no ${DEPLOY_SERVER_KEY} 'bash ~/docker-files/docker-script.sh'"
 // Docker script here is:
 // sudo yum install docker -y
 // sudo systemctl start docker
 
-                         sh "ssh ${DEPLOY_SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD"
-                         sh "ssh ${DEPLOY_SERVER_IP} bash /home/ec2-user/docker-files/docker-compose-script.sh ${IMAGE_NAME}"
+                         sh "ssh ${DEPLOY_SERVER_KEY} sudo docker login -u $USERNAME -p $PASSWORD"
+                         sh "ssh ${DEPLOY_SERVER_KEY} bash /home/ec2-user/docker-files/docker-compose-script.sh ${IMAGE_NAME}"
 // Important: from Image_name we are passing variable to shell script
 // DOCKER-COMPOSE SCRIPT:
 // sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose

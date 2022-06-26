@@ -63,15 +63,15 @@ pipeline {
 //       - "8001:80"
 //       depends_on:
 //       - mysql
-//     mysql:
-//       image: amitv1/java-mvn-privaterepos:mysql
-//       volumes:
-//       - db_data:/var/lib/mysql
-//       environment:
-//         MYSQL_ROOT_PASSWORD: password
-//         MYSQL_DATABASE: mydatabase
-// volumes:
-//    db_data: {}
+    mysql:
+      image: amitv1/java-mvn-privaterepos:mysql
+      volumes:
+      - db_data:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: mydatabase
+volumes:
+   db_data: {}
 
 
                          }

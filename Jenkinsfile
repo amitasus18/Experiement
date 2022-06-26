@@ -1,10 +1,10 @@
 pipeline {
    agent none
   environment{
-       BUILD_SERVER_IP='ec2-user@13.59.2.226'
+       BUILD_SERVER_IP='ec2-user@3.138.86.70'
        IMAGE_NAME='amitv1/java-mvn-privaterepos:php$BUILD_NUMBER'
 //This will build the docker with php_Number'
-       DEPLOY_SERVER_KEY='ec2-user@18.118.103.254'
+       DEPLOY_SERVER_KEY='ec2-user@13.58.55.180'
    }
     stages {          
 // BUILDING BLOCK
